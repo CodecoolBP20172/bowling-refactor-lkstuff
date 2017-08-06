@@ -9,7 +9,7 @@ def score(game):
             result += get_spare_result(previous_point)
         else:
             result += roll_point
-        if frame < 10  and roll_point == 10:
+        if frame < 10 and roll_point == 10:
             if is_spare(roll_char):
                 result += get_value(game[roll+1])
             elif is_strike(roll_char):
@@ -27,6 +27,7 @@ def score(game):
             frame += 1
     return result
 
+
 def get_value(char):
     if char == '1' or char == '2' or char == '3' or \
        char == '4' or char == '5' or char == '6' or \
@@ -41,11 +42,14 @@ def get_value(char):
     else:
         raise ValueError()
 
+
 def is_strike(char):
     return char == 'X' or char == 'x'
 
+
 def is_spare(char):
     return char == '/'
+
 
 def get_spare_result(previous_point):
     return 10 - previous_point
