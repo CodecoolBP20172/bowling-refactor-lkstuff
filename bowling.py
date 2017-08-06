@@ -2,25 +2,25 @@ def score(game):
     result = 0
     frame = 1
     first_ball_of_frame = True
-    for i in range(len(game)):
-        if is_spare(game[i]):
-            result += get_spare_result(last)
+    for roll in range(len(game)):
+        if is_spare(game[roll]):
+            result += get_spare_result(previous_point)
         else:
-            result += get_value(game[i])
-        if frame < 10  and get_value(game[i]) == 10:
-            if is_spare(game[i]):
-                result += get_value(game[i+1])
-            elif is_strike(game[i]):
-                result += get_value(game[i+1])
-                if is_spare(game[i+2]):
-                    result += get_spare_result(get_value(game[i+1]))
+            result += get_value(game[roll])
+        if frame < 10  and get_value(game[roll]) == 10:
+            if is_spare(game[roll]):
+                result += get_value(game[roll+1])
+            elif is_strike(game[roll]):
+                result += get_value(game[roll+1])
+                if is_spare(game[roll+2]):
+                    result += get_spare_result(get_value(game[roll+1]))
                 else:
-                    result += get_value(game[i+2])
-        last = get_value(game[i])
+                    result += get_value(game[roll+2])
+        previous_point = get_value(game[roll])
         if not first_ball_of_frame:
             frame += 1
         first_ball_of_frame = not first_ball_of_frame
-        if is_strike(game[i]):
+        if is_strike(game[roll]):
             first_ball_of_frame = True
             frame += 1
     return result
