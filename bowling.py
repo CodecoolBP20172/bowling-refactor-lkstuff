@@ -3,15 +3,16 @@ def score(game):
     frame = 1
     first_ball_of_frame = True
     for roll in range(len(game)):
-        roll_point = get_value(game[roll])
-        if is_spare(game[roll]):
+        roll_char = game[roll]
+        roll_point = get_value(roll_char)
+        if is_spare(roll_char):
             result += get_spare_result(previous_point)
         else:
             result += roll_point
         if frame < 10  and roll_point == 10:
-            if is_spare(game[roll]):
+            if is_spare(roll_char):
                 result += get_value(game[roll+1])
-            elif is_strike(game[roll]):
+            elif is_strike(roll_char):
                 result += get_value(game[roll+1])
                 if is_spare(game[roll+2]):
                     result += get_spare_result(get_value(game[roll+1]))
@@ -21,7 +22,7 @@ def score(game):
         if not first_ball_of_frame:
             frame += 1
         first_ball_of_frame = not first_ball_of_frame
-        if is_strike(game[roll]):
+        if is_strike(roll_char):
             first_ball_of_frame = True
             frame += 1
     return result
