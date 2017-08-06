@@ -4,7 +4,7 @@ def score(game):
     first_ball_of_frame = True
     for i in range(len(game)):
         if is_spare(game[i]):
-            result += 10 - last
+            result += get_spare_result(last)
         else:
             result += get_value(game[i])
         if frame < 10  and get_value(game[i]) == 10:
@@ -13,7 +13,7 @@ def score(game):
             elif is_strike(game[i]):
                 result += get_value(game[i+1])
                 if is_spare(game[i+2]):
-                    result += 10 - get_value(game[i+1])
+                    result += get_spare_result(get_value(game[i+1]))
                 else:
                     result += get_value(game[i+2])
         last = get_value(game[i])
@@ -45,3 +45,5 @@ def is_strike(char):
 def is_spare(char):
     return char == '/'
 
+def get_spare_result(previous_point):
+    return 10 - previous_point
