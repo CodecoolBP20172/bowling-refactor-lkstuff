@@ -10,10 +10,8 @@ def score(game):
         else:
             result += roll_point
         if frame < 10 and roll_point == 10:
-            if is_spare(roll_char):
-                result += get_value(game[roll+1])
-            elif is_strike(roll_char):
-                result += get_value(game[roll+1])
+            result += get_value(game[roll+1])
+            if is_strike(roll_char):
                 if is_spare(game[roll+2]):
                     result += get_spare_result(get_value(game[roll+1]))
                 else:
